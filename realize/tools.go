@@ -41,12 +41,7 @@ type Tools struct {
 
 // Setup go tools
 func (t *Tools) Setup() {
-	var gocmd string
-	if t.vgo {
-		gocmd = "vgo"
-	} else {
-		gocmd = "go"
-	}
+	gocmd := "go"
 
 	// go clean
 	if t.Clean.Status {
@@ -93,6 +88,7 @@ func (t *Tools) Setup() {
 	t.Install.name = "Install"
 	t.Install.cmd = replace([]string{gocmd, "install"}, t.Install.Method)
 	t.Install.Args = split([]string{}, t.Install.Args)
+
 	// go build
 	if t.Build.Status {
 		t.Build.name = "Build"

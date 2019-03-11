@@ -38,7 +38,7 @@ func main() {
 					&cli.BoolFlag{Name: "open", Aliases: []string{"op"}, Value: false, Usage: "Open into the default browser"},
 					&cli.BoolFlag{Name: "install", Aliases: []string{"i"}, Value: false, Usage: "Enable go install"},
 					&cli.BoolFlag{Name: "build", Aliases: []string{"b"}, Value: false, Usage: "Enable go build"},
-					&cli.BoolFlag{Name: "run", Aliases: []string{"nr"}, Value: false, Usage: "Enable go run"},
+					&cli.BoolFlag{Name: "run", Aliases: []string{"nr"}, Value: true, Usage: "Enable go run"},
 					&cli.BoolFlag{Name: "legacy", Aliases: []string{"l"}, Value: false, Usage: "Legacy watch by polling instead fsnotify"},
 					&cli.BoolFlag{Name: "no-config", Aliases: []string{"nc"}, Value: false, Usage: "Ignore existing config and doesn't create a new one"},
 				},
