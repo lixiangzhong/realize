@@ -245,12 +245,12 @@ func (p *Project) Reload(path string, stop <-chan bool) {
 					return
 				case r := <-result:
 					if r.Err != nil {
-						msg := fmt.Sprintln(p.pname(p.Name, 2), ":", Red.Regular(r.Err))
+						msg := fmt.Sprintln(p.pname(p.Name, 2), Red.Regular(r.Err))
 						out := BufferOut{Time: time.Now(), Text: r.Err.Error(), Type: "Go Run"}
 						p.stamp("error", out, msg, "")
 					}
 					if r.Out != "" {
-						msg := fmt.Sprintln(p.pname(p.Name, 3), ":", Blue.Regular(r.Out))
+						msg := fmt.Sprintln(p.pname(p.Name, 3), r.Out)
 						out := BufferOut{Time: time.Now(), Text: r.Out, Type: "Go Run"}
 						p.stamp("out", out, msg, "")
 					}
@@ -387,24 +387,25 @@ func (p *Project) Validate(path string, fcheck bool) bool {
 
 // Defines the colors scheme for the project name
 func (p *Project) pname(name string, color int) string {
-	switch color {
-	case 1:
-		name = Yellow.Regular("[") + strings.ToUpper(name) + Yellow.Regular("]")
-		break
-	case 2:
-		name = Yellow.Regular("[") + Red.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
-		break
-	case 3:
-		name = Yellow.Regular("[") + Blue.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
-		break
-	case 4:
-		name = Yellow.Regular("[") + Magenta.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
-		break
-	case 5:
-		name = Yellow.Regular("[") + Green.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
-		break
-	}
-	return name
+	return ""
+	// switch color {
+	// case 1:
+	// 	name = Yellow.Regular("[") + strings.ToUpper(name) + Yellow.Regular("]")
+	// 	break
+	// case 2:
+	// 	name = Yellow.Regular("[") + Red.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
+	// 	break
+	// case 3:
+	// 	name = Yellow.Regular("[") + Blue.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
+	// 	break
+	// case 4:
+	// 	name = Yellow.Regular("[") + Magenta.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
+	// 	break
+	// case 5:
+	// 	name = Yellow.Regular("[") + Green.Bold(strings.ToUpper(name)) + Yellow.Regular("]")
+	// 	break
+	// }
+	// return name
 }
 
 //  Tool logs the result of a go command

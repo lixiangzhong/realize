@@ -8,9 +8,7 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
-	"strings"
 	"sync"
-	"time"
 
 	"github.com/fsnotify/fsnotify"
 )
@@ -102,16 +100,13 @@ func (r *Realize) Start() error {
 
 // Prefix a given string with tool name
 func (r *Realize) Prefix(input string) string {
-	if len(input) > 0 {
-		return fmt.Sprint(Yellow.Bold("["), strings.ToUpper(RPrefix), Yellow.Bold("]"), " : ", input)
-	}
 	return input
 }
 
 // Rewrite the layout of the log timestamp
 func (w LogWriter) Write(bytes []byte) (int, error) {
 	if len(bytes) > 0 {
-		return fmt.Fprint(Output, Yellow.Regular("["), time.Now().Format("15:04:05"), Yellow.Regular("]"), string(bytes))
+		return fmt.Fprint(Output, string(bytes))
 	}
 	return 0, nil
 }
