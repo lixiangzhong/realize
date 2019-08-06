@@ -578,7 +578,7 @@ func (p *Project) run(path string, stream chan Response, stop <-chan bool) (err 
 	defer func() {
 		// https://github.com/golang/go/issues/5615
 		// https://github.com/golang/go/issues/6720
-		if build != nil {
+		if build != nil && build.Process != nil {
 			build.Process.Signal(os.Interrupt)
 			build.Process.Wait()
 		}

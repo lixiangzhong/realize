@@ -172,16 +172,22 @@ func (t *Tool) Compile(path string, stop <-chan bool) (response Response) {
 	var stderr bytes.Buffer
 	done := make(chan error)
 	args := append(t.cmd, t.Args...)
+
 	cmd := exec.Command(args[0], args[1:]...)
 	if t.Dir != "" {
 		cmd.Dir, _ = filepath.Abs(t.Dir)
 	} else {
 		cmd.Dir = path
 	}
+
 	cmd.Stdout = &out
 	cmd.Stderr = &stderr
 	// Start command
-	cmd.Start()
+	err := cmd.Start()
+	if err != nil {
+		log.Println(args, cmd.Dir)
+		log.Println(err)
+	}
 	go func() { done <- cmd.Wait() }()
 	// Wait a result
 	response.Name = t.name
@@ -192,6 +198,7 @@ func (t *Tool) Compile(path string, stop <-chan bool) (response Response) {
 	case err := <-done:
 		// Command completed
 		if err != nil {
+			log.Println("err", err)
 			response.Err = errors.New(stderr.String() + err.Error())
 		}
 	}
